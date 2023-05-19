@@ -72,12 +72,24 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# ssh-agent config
+zstyle :omz:plugins:ssh-agent lifetime 4h
+
+# ssh-agent powerlevel10k specific config
+zstyle :omz:plugins:ssh-agent quiet yes
+zstyle :omz:plugins:ssh-agent lazy yes
+
+# required by pyenv plugin
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git pyenv ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,5 +119,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# bash completition
+# https://stackoverflow.com/questions/67136714/how-to-properly-call-compinit-and-bashcompinit-in-zsh
+autoload -Uz compinit bashcompinit
+compinit
+bashcompinit
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
