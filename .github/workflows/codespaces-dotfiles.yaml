@@ -16,10 +16,10 @@ jobs:
         run: |
           mkdir -p /home/runner/chezmoi /home/runner/dotfiles
 
-      - name: pull
+      - name: clone
         run: |
           cd /home/runner/dotfiles
-          git pull https://github.com/$GITHUB_USERNAME/codespaces-dotfiles
+          git clone https://github.com/$GITHUB_USERNAME/codespaces-dotfiles .
       
       - name: make
         run: |
