@@ -12,6 +12,10 @@ jobs:
   chezmoi:
     runs-on: ubuntu-latest
     steps:
+      - name: setup
+        run: |
+          git config --global user.email "github@actions.net"
+          git config --global user.name "GitHub Actions"
       - name: mkdir
         run: |
           mkdir -p /home/runner/chezmoi /home/runner/dotfiles
