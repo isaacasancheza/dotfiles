@@ -12,13 +12,22 @@ jobs:
   chezmoi:
     runs-on: ubuntu-latest
     steps:
-      - name: make
+      - name: mkdir
         run: |
           mkdir -p /home/runner/chezmoi /home/runner/dotfiles
+
+      - name: pull
+        run: |
+          cd /home/runner/dotfiles
+          git pull https://github.com/$GITHUB_USERNAME/codespaces-dotfiles
+      
+      - name: make
+        run: |
           sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source /home/runner/chezmoi --destination /home/runner/dotfiles --apply $GITHUB_USERNAME
-          ls /home/runner/dotfiles
 
       - name: push
         run: |
           cd /home/runner/dotfiles
-          git push https://github.com/$GITHUB_USERNAME/codespaces-dotfiles origin main
+          git add -A
+          git commit -m "Update dotfiles"
+          git push origin main
