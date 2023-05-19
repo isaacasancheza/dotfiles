@@ -5,9 +5,6 @@ on:
     branches:
       - master
 
-env:
-  DESTINATION: $HOME/destination
-
 jobs:
   chezmoi:
     runs-on: ubuntu-latest
@@ -17,11 +14,13 @@ jobs:
           USERNAME: ${{ github.actor }}
         working-directory: ${{ github.workspace }}
         run: |
-          mkdir $DESTINATION
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source $HOME --destination $DESTINATION --apply $USERNAME
-          ls $DESTINATION
+          mkdir /home/dotfiles
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source $HOME --destination $HOME/dotfiles--apply $USERNAME
+          ls $HOME/dotfiles
 
       - name: push to repo
         env:
           REPOSITORY: https://github.com/${{ github.username }}/dotfiles
-        run: git push $REPOSITORY origin main
+        run: |
+          cd $HOME/dotfiles
+          git push $REPOSITORY origin main
