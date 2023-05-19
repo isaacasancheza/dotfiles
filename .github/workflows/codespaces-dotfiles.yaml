@@ -24,7 +24,8 @@ jobs:
       - name: clone
         run: |
           cd /home/runner/dotfiles
-          git clone https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/$GITHUB_USERNAME/codespaces-dotfiles .
+          git clone https://github.com/$GITHUB_USERNAME/codespaces-dotfiles .
+          git remote set-url origin https://$GITHUB_USERNAME:$GITHUB_TOKEKN@github.com/$GITHUB_USERNAME/codespaces-dotfiles
       
       - name: make
         run: |
