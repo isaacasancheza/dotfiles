@@ -1,0 +1,21 @@
+name: Copy dotfiles to codespaces
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  chezmoi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: download chezmoi
+        env: 
+          USERNAME: ${{ github.username }}
+          DESTINATION: /dotfiles
+        working-dir: ${{ env.DESTINATION }}
+        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --destination $DESTINATION  --apply $USERNAME
+      - name: push to repo
+        env:
+          REPOSITORY: https://github.com/${{ github.username }}/dotfiles
+        run: git push $REPOSITORY origin main
