@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  DESTINATION: /dotfiles
+  DESTINATION: ./destination
 
 jobs:
   chezmoi:
@@ -21,7 +21,6 @@ jobs:
           ls $DESTINATION
 
       - name: push to repo
-        working-directory: ${{ env.DESTINATION }}
         env:
           REPOSITORY: https://github.com/${{ github.username }}/dotfiles
         run: git push $REPOSITORY origin main
