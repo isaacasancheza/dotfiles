@@ -14,8 +14,8 @@ jobs:
           USERNAME: ${{ github.actor }}
         working-directory: ${{ github.workspace }}
         run: |
-          mkdir /home/dotfiles
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source /home/runner/source --destination /home/runner/dotfiles --apply $USERNAME
+          mkdir -p /home/runner/chezmoi /home/runner/dotfiles
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source /home/runner/chezmoi --destination /home/runner/dotfiles --apply $USERNAME
           ls /home/runner/dotfiles
 
       - name: push to repo
