@@ -16,7 +16,8 @@ jobs:
         env: 
           USERNAME: ${{ github.username }}
         run: |
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --destination $DESTINATION  --apply $USERNAME
+          sh -c "$(curl -fsLS get.chezmoi.io)"
+          chezmoi --destination $DESTINATION --apply $USERNAME
           ls $DESTINATION
 
       - name: push to repo
