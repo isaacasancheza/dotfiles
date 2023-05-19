@@ -15,12 +15,12 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           mkdir /home/dotfiles
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source $HOME --destination $HOME/dotfiles--apply $USERNAME
-          ls $HOME/dotfiles
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source $HOME --destination /home/runner/dotfiles--apply $USERNAME
+          ls /home/runner/dotfiles
 
       - name: push to repo
         env:
           REPOSITORY: https://github.com/${{ github.username }}/dotfiles
         run: |
-          cd $HOME/dotfiles
+          cd /home/runner/dotfiles
           git push $REPOSITORY origin main
