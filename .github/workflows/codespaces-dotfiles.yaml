@@ -1,26 +1,24 @@
-name: Copy dotfiles to codespaces
+name: Make dotfiles
 
 on:
   push:
     branches:
       - master
 
+env: 
+  GITHUB_USERNAME: ${{ github.actor }}
+
 jobs:
   chezmoi:
     runs-on: ubuntu-latest
     steps:
-      - name: download and apply chezmoi
-        env: 
-          USERNAME: ${{ github.actor }}
-        working-directory: ${{ github.workspace }}
+      - name: make
         run: |
           mkdir -p /home/runner/chezmoi /home/runner/dotfiles
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source /home/runner/chezmoi --destination /home/runner/dotfiles --apply $USERNAME
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source /home/runner/chezmoi --destination /home/runner/dotfiles --apply $GITHUB_USERNAME
           ls /home/runner/dotfiles
 
-      - name: push to repo
-        env:
-          REPOSITORY: https://github.com/${{ github.username }}/dotfiles
+      - name: push
         run: |
           cd /home/runner/dotfiles
-          git push $REPOSITORY origin main
+          git push https://github.com/$GITHUB_USERNAME/codespaces-dotfiles origin main
