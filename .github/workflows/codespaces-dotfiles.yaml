@@ -16,6 +16,7 @@ jobs:
         env: 
           USERNAME: ${{ github.username }}
         run: |
+          mkdir $DESTINATION
           sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source $HOME --destination $DESTINATION --apply $USERNAME
           ls $DESTINATION
 
