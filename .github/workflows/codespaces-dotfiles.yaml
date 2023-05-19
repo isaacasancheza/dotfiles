@@ -15,7 +15,9 @@ jobs:
       - name: download and apply chezmoi
         env: 
           USERNAME: ${{ github.username }}
-        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --destination $DESTINATION  --apply $USERNAME
+        run: |
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --destination $DESTINATION  --apply $USERNAME
+          ls
 
       - name: push to repo
         working-directory: ${{ env.DESTINATION }}
