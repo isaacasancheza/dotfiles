@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  DESTINATION: ./destination
+  DESTINATION: $HOME/destination
 
 jobs:
   chezmoi:
@@ -15,6 +15,7 @@ jobs:
       - name: download and apply chezmoi
         env: 
           USERNAME: ${{ github.actor }}
+        working-directory: ${{ github.workspace }}
         run: |
           mkdir $DESTINATION
           sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source $HOME --destination $DESTINATION --apply $USERNAME
