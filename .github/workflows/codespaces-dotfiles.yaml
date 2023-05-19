@@ -11,11 +11,12 @@ jobs:
     env:
       DESTINATION: /dotfiles
     steps:
-      - name: download chezmoi
+      - name: download and apply chezmoi
         env: 
           USERNAME: ${{ github.username }}
         run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --destination $DESTINATION  --apply $USERNAME
       - name: push to repo
-          working-directory: ${{ jobs.chezmoi.env.DESTINATION }}
+        working-directory: ${{ jobs.chezmoi.env.DESTINATION }}
+        env:
           REPOSITORY: https://github.com/${{ github.username }}/dotfiles
         run: git push $REPOSITORY origin main
