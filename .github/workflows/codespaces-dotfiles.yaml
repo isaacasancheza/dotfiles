@@ -6,6 +6,7 @@ on:
       - master
 
 env: 
+  GITHUB_TOKNE: ${{ secrets.TOKEN }}
   GITHUB_USERNAME: ${{ github.actor }}
 
 jobs:
@@ -23,7 +24,7 @@ jobs:
       - name: clone
         run: |
           cd /home/runner/dotfiles
-          git clone https://github.com/$GITHUB_USERNAME/codespaces-dotfiles .
+          git clone https://$GITHUB_USERNAME:$GITHUB_TOKEN:github.com/$GITHUB_USERNAME/codespaces-dotfiles .
       
       - name: make
         run: |
