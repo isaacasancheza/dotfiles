@@ -5,11 +5,12 @@ on:
     branches:
       - master
 
+env:
+  DESTINATION: /dotfiles
+
 jobs:
   chezmoi:
     runs-on: ubuntu-latest
-    env:
-      DESTINATION: /dotfiles
     steps:
       - name: download and apply chezmoi
         env: 
@@ -17,7 +18,7 @@ jobs:
         run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --destination $DESTINATION  --apply $USERNAME
 
       - name: push to repo
-        working-directory: ${{ jobs.chezmoi.env.DESTINATION }}
+        working-directory: ${{ env.DESTINATION }}
         env:
           REPOSITORY: https://github.com/${{ github.username }}/dotfiles
         run: git push $REPOSITORY origin main
