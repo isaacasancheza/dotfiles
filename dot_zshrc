@@ -79,17 +79,25 @@ zstyle :omz:plugins:ssh-agent lifetime 4h
 zstyle :omz:plugins:ssh-agent quiet yes
 zstyle :omz:plugins:ssh-agent lazy yes
 
-# required by pyenv plugin
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git pyenv ssh-agent)
+plugins=(git)
+
+# required by pyenv plugin, if exists
+if pyenv_loc="$(type -p pyenv)" && [[ ! -z $pyenv_loc ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
+  plugins+=(pyenv)
+fi
+
+# only load ssh-agent if exists
+if agent_loc="$(type -p ssh-agent)" && [[ ! -z $agent_loc ]]; then
+  plugins+=(ssh-agent)
+fi
 
 source $ZSH/oh-my-zsh.sh
 
