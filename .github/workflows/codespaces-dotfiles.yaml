@@ -1,0 +1,39 @@
+name: Make dotfiles
+
+on:
+  push:
+    branches:
+      - master
+
+env: 
+  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+  GITHUB_USERNAME: ${{ github.actor }}
+
+jobs:
+  chezmoi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup
+        run: |
+          git config --global user.email "github@actions.net"
+          git config --global user.name "GitHub Actions"
+      - name: mkdir
+        run: |
+          mkdir -p /home/runner/chezmoi /home/runner/dotfiles
+
+      - name: clone
+        run: |
+          cd /home/runner/dotfiles
+          git clone https://github.com/$GITHUB_USERNAME/codespaces-dotfiles .
+          git remote set-url origin https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/$GITHUB_USERNAME/codespaces-dotfiles
+      
+      - name: make
+        run: |
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source /home/runner/chezmoi --destination /home/runner/dotfiles --apply $GITHUB_USERNAME
+
+      - name: push
+        run: |
+          cd /home/runner/dotfiles
+          git add -A
+          git commit -m "Update dotfiles"
+          git push origin main
