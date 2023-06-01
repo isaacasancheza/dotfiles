@@ -1,0 +1,11 @@
+[user]
+# Please adapt and uncomment the following lines:
+	name = Isaac Sánchez
+	email = isaacsancheza@outlook.com
+[core]
+	pager = more
+	editor = vim
+	excludesfile = ~/.gitignore_global
+[init]
+	defaultBranch = master
+
