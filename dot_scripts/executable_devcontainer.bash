@@ -2,8 +2,8 @@
 #https://superuser.com/questions/333388/gnu-dialog-and-utf-8-characters
 export NCURSES_NO_UTF8_ACS=1
 
-workspaceFolder=/home/admin/.scripts
-devcontainerFolder=/home/admin/.scripts/.devcontainer
+workspaceFolder=/workspace
+devcontainerFolder=$HOME/.scripts/.devcontainer
 
 count=0
 options=
