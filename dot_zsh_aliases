@@ -1,3 +1,4 @@
 alias s3='aws s3'
 alias devcontainer='bash ~/.scripts/devcontainer.bash'
+alias get-cookiecutter-variables='python ~/.scripts/get_cookiecutter_variables.py'
 
