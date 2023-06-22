@@ -1,25 +1,35 @@
 #!/usr/bin/env python3
+import yaml
 import json
-
+import argparse
 import requests
 
 
-root = 'https://raw.githubusercontent.com/isaacsancheza/cookiecutters/master/%s/cookiecutter.json'
-cookiecutter_name = input('cookiecutter name: ')
+URI = 'https://raw.githubusercontent.com/isaacsancheza/cookiecutters/master/{cookiecutter_name}/cookiecutter.json'
 
-if not cookiecutter_name:
-    print('cookiecutter name cannot be empty')
-    exit(1)
 
-response = requests.get(root % cookiecutter_name, timeout=6)
-if not response.ok:
-    print('cookiecutter "%s" does not exists' % cookiecutter_name)
-    exit(1)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('cookiecutter_name', type=str, help='cookiecutter name')
 
-cookiecutter = json.loads(response.text)
-variables = ['    %s: ' % key for key in cookiecutter if not key.startswith('_')]
+    args = parser.parse_args()
+    cookiecutter_name = args.cookiecutter_name
+    
+    if not cookiecutter_name:
+        print('cookiecutter name cannot be empty')
+        parser.exit(1)
 
-with open('%s-variables' % cookiecutter_name, 'w') as f:
-    f.write('default_context:\n')
-    for variable in variables:
-        f.write('%s\n' % variable)
+    response = requests.get(URI.format(cookiecutter_name=cookiecutter_name), timeout=6)
+    if not response.ok:
+        print('cookiecutter "{cookiecutter_name}" does not exists'.format(cookiecutter_name=cookiecutter_name))
+        parser.exit(1)
+
+    cookiecutter_json = json.loads(response.text)
+    cookiecutter_variables = {key: '' for key in cookiecutter_json if not key.startswith('_')}
+
+    cookiecutter = {
+        'default_context': cookiecutter_variables
+    }
+
+    with open('{cookiecutter_name}-variables.yaml'.format(cookiecutter_name=cookiecutter_name), 'w', encoding='UTF-8') as f:
+        yaml.dump(cookiecutter, f, indent=4)
