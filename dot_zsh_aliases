@@ -1,4 +1,4 @@
-alias fix-permission='sh ~/.scripts/set-acl.sh'
+alias fix-permissions='sh ~/.scripts/set-acl.sh'
 alias set-devcontainer='python ~/.scripts/set_devcontainer.py'
 alias get-cookiecutter-variables='python ~/.scripts/get_cookiecutter_variables.py'
 
