@@ -1,4 +1,5 @@
+alias t='todo.sh'
+alias cookie='cookiecutter gh:isaacsancheza/cookiecutters --directory'
 alias fix-permissions='sh ~/.scripts/set-acl.sh'
 alias set-devcontainer='python ~/.scripts/set_devcontainer.py'
 alias get-cookiecutter-variables='python ~/.scripts/get_cookiecutter_variables.py'
-
