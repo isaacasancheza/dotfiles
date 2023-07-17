@@ -1,5 +1,0 @@
-ignore_checks:
-    - W3002
-append_rules:
-    - cfn_lint_serverless.rules
-
