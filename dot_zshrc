@@ -158,6 +158,11 @@ if [ -d "$HOME/.nvm" ]; then
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
+# docker rootless
+if [ -S "/run/user/$UID/docker.sock" ]; then
+	export DOCKER_HOST=unix:///run/user/$UID/docker.sock
+fi
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
