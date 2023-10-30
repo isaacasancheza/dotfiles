@@ -1,6 +1,6 @@
 set hlsearch
 set autoindent
-set noexpandtab
+set expandtab
 set tabstop=4
 set shiftwidth=4
 
