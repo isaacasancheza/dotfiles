@@ -84,7 +84,11 @@ zstyle :omz:plugins:ssh-agent lazy yes
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+
+# suggested at https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/
+export NVM_LAZY_LOAD=true
+export NVM_COMPLETION=true
+plugins=(git zsh-nvm evalcache)
 
 # required by pyenv plugin, if exists
 if pyenv_loc="$(type -p pyenv)" && [[ ! -z $pyenv_loc ]]; then
@@ -148,7 +152,7 @@ fi
 if [ -d "$HOME/.pyenv" ]; then
 	export PYENV_ROOT="$HOME/.pyenv"
 	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-	eval "$(pyenv init -)"
+    _evalcache pyenv init -
 fi
 
 # nvm
@@ -157,6 +161,7 @@ if [ -d "$HOME/.nvm" ]; then
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
+
 
 # docker rootless
 if [ -S "/run/user/$UID/docker.sock" ]; then
