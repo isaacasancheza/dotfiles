@@ -88,20 +88,7 @@ zstyle :omz:plugins:ssh-agent lazy yes
 # suggested at https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/
 export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
-plugins=(git zsh-nvm evalcache)
-
-# required by pyenv plugin, if exists
-if pyenv_loc="$(type -p pyenv)" && [[ ! -z $pyenv_loc ]]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init --path)"
-  plugins+=(pyenv)
-fi
-
-# only load ssh-agent if exists
-if agent_loc="$(type -p ssh-agent)" && [[ ! -z $agent_loc ]]; then
-  plugins+=(ssh-agent)
-fi
+plugins=(git zsh-nvm ssh-agent evalcache zsh-direnv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -134,25 +121,18 @@ if [ -f ~/.zsh_aliases ]; then
     . ~/.zsh_aliases
 fi
 
-# virtualenv inside project
-export PIPENV_VENV_IN_PROJECT=1
-
 # bash completition
 # https://stackoverflow.com/questions/67136714/how-to-properly-call-compinit-and-bashcompinit-in-zsh
 autoload -Uz compinit bashcompinit
 compinit
 bashcompinit
 
+# virtualenv inside project
+export PIPENV_VENV_IN_PROJECT=1
+
 # local bin
 if [ -d "$HOME/.local/bin" ]; then
 	export PATH="$HOME/.local/bin:$PATH"
-fi
-
-# pyenv
-if [ -d "$HOME/.pyenv" ]; then
-	export PYENV_ROOT="$HOME/.pyenv"
-	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-    _evalcache pyenv init -
 fi
 
 # nvm
@@ -162,6 +142,12 @@ if [ -d "$HOME/.nvm" ]; then
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
+# pyenv
+if [ -d "$HOME/.pyenv" ]; then
+	export PYENV_ROOT="$HOME/.pyenv"
+	export PATH="$PYENV_ROOT/bin:$PATH"
+    _evalcache pyenv init -
+fi
 
 # docker rootless
 if [ -S "/run/user/$UID/docker.sock" ]; then
