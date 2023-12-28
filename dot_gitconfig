@@ -1,7 +1,6 @@
 [user]
 # Please adapt and uncomment the following lines:
 	name = Isaac Sánchez
-	email = isaacsanchezalbert@gmail.com
 [core]
 	pager = more
 	editor = vim
