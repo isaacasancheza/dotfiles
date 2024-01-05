@@ -1,6 +1,6 @@
-alias t='todo.sh'
 alias cc='cookiecutter gh:isaacsancheza/cookiecutters --directory'
-alias uuid='python -m uuid | xclip -selection clipboard'
+alias uuid='python -c "import uuid; print(uuid.uuid4())"'
+alias isonow='python -c "import datetime; print(datetime.datetime.now(datetime.timezone.utc).isoformat())"'
 alias minidump='sh ~/.scripts/minidump.sh'
 alias fix-permissions='sh ~/.scripts/set-acl.sh'
 alias set-devcontainer='python ~/.scripts/set_devcontainer.py'
