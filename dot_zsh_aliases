@@ -1,4 +1,5 @@
 alias cc='cookiecutter gh:isaacsancheza/cookiecutters --directory'
+alias pn='pnpm'
 alias uuid='python -c "import uuid; print(uuid.uuid4())"'
 alias isonow='python -c "import datetime; print(datetime.datetime.now(datetime.timezone.utc).isoformat())"'
 alias minidump='sh ~/.scripts/minidump.sh'
