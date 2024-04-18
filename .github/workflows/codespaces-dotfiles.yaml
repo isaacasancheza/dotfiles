@@ -16,8 +16,8 @@ jobs:
     steps:
       - name: setup
         run: |
-          git config --global user.email "github@actions.net"
-          git config --global user.name "GitHub Actions"
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github@actions.net'
       - name: mkdir
         run: |
           mkdir -p /home/runner/chezmoi /home/runner/dotfiles
@@ -36,5 +36,5 @@ jobs:
         run: |
           cd /home/runner/dotfiles
           git add -A
-          git commit -m "Update dotfiles"
+          git commit -m '':wrench: update dotfiles'
           git push origin main
