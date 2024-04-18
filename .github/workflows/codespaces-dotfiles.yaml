@@ -38,5 +38,5 @@ jobs:
         run: |
           cd /home/runner/dotfiles
           git add -A
-          git commit -m '':wrench: update dotfiles'
+          git commit -m ':wrench: update dotfiles'
           git push origin main
