@@ -13,6 +13,8 @@ env:
 jobs:
   chezmoi:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: setup
         run: |
