@@ -88,7 +88,7 @@ zstyle :omz:plugins:ssh-agent lazy yes
 # suggested at https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/
 export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
-plugins=(git poetry zsh-nvm ssh-agent evalcache zsh-direnv auto-notify)
+plugins=(git zpy poetry zsh-nvm ssh-agent evalcache zsh-direnv auto-notify)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -153,6 +153,12 @@ fi
 if [ -S "/run/user/$UID/docker.sock" ]; then
 	export DOCKER_HOST=unix:///run/user/$UID/docker.sock
 fi
+
+# astral.sh/uv
+. "$HOME/.cargo/env"
+
+# Set up fzf key bindings and fuzzy completion
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
