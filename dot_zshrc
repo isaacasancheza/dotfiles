@@ -88,7 +88,7 @@ zstyle :omz:plugins:ssh-agent lazy yes
 # suggested at https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/
 export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
-plugins=(git zpy poetry zsh-nvm ssh-agent evalcache zsh-direnv auto-notify)
+plugins=(git zpy poetry zsh-nvm ssh-agent evalcache zsh-direnv)
 
 source $ZSH/oh-my-zsh.sh
 
