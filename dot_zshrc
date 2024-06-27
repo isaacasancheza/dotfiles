@@ -154,9 +154,6 @@ if [ -S "/run/user/$UID/docker.sock" ]; then
 	export DOCKER_HOST=unix:///run/user/$UID/docker.sock
 fi
 
-# astral.sh/uv
-. "$HOME/.cargo/env"
-
 # Set up fzf key bindings and fuzzy completion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
