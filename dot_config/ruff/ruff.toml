@@ -1,0 +1,6 @@
+[format]
+quote-style = "single"
+
+[lint.per-file-ignores]
+"lambda_.py" = ["E402"]
+"__init__.py" = ["F401"]
