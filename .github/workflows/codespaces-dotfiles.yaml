@@ -1,4 +1,4 @@
-name: Make dotfiles
+name: codepsaces dotfiles
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
   workflow_dispatch:
 
 env: 
-  GITHUB_TOKEN: ${{ secrets.TOKEN }}
   GITHUB_USERNAME: ${{ github.actor }}
 
 jobs:
@@ -16,27 +15,24 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: setup
-        run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'github@actions.net'
-      - name: mkdir
-        run: |
-          mkdir -p /home/runner/chezmoi /home/runner/dotfiles
+      - name: Checkout codespaces dotfiles repo
+        uses: actions/checkout@v3
+        with:
+          ref: master
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repository: ${{ github.actor }}/codespaces-dotfiles
 
-      - name: clone
+      - name: Setup git
         run: |
-          cd /home/runner/dotfiles
-          git clone https://github.com/$GITHUB_USERNAME/codespaces-dotfiles .
-          git remote set-url origin https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/$GITHUB_USERNAME/codespaces-dotfiles
-      
-      - name: make
-        run: |
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source /home/runner/chezmoi --destination /home/runner/dotfiles --apply $GITHUB_USERNAME
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: push
+      - name: Generate dotfiles
         run: |
-          cd /home/runner/dotfiles
-          git add -A
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --source /home/runner/chezmoi --destination . --apply $GITHUB_USERNAME
+
+      - name: Commit changes
+        run: |
+          git add .
           git commit -m ':wrench: update dotfiles'
-          git push origin main
+          git push origin master
