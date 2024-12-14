@@ -1,6 +1,6 @@
 alias cc='cookiecutter gh:isaacasancheza/cookiecutters --directory'
 alias uuid='python3 -m uuid'
-alias cpenv='which python3 | pbcopy'
+alias cpenv='uv python find | pbcopy'
 alias cdkgc='sh ~/.scripts/cdkgc.sh'
 alias random='python3 -m random'
 alias invoke='sh ~/.scripts/invoke.sh'
