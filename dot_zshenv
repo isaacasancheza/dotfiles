@@ -2,7 +2,7 @@
 export UV_PYTHON=3.13
 
 # pnpm
-export PNPM_HOME="$HOME/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
