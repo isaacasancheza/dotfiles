@@ -20,7 +20,7 @@ zstyle :omz:plugins:ssh-agent quiet yes
 zstyle :omz:plugins:ssh-agent lazy yes
 
 # omz plugins
-plugins=(uv aws chezmoi ssh-agent auto-notify)
+plugins=(uv direnv chezmoi ssh-agent)
 
 # source omz
 source $ZSH/oh-my-zsh.sh
