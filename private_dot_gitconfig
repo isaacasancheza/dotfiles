@@ -2,7 +2,7 @@
 	name = Isaac Sánchez
 	email = 1031819+isaacasancheza@users.noreply.github.com
 [core]
-	pager = more
+	pager = less -r
 	editor = vim
 	excludesfile = ~/.gitignore_global
 [init]
