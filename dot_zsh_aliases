@@ -6,3 +6,5 @@ alias random='python3 -m random'
 alias invoke='sh ~/.scripts/invoke.sh'
 alias isonow='python3 -c "import datetime; print(datetime.datetime.now(datetime.timezone.utc).isoformat())"'
 alias covhtml='uv run coverage html && open htmlcov/index.html'
+alias minidump='sh ~/.scripts/minidump.sh'
+
