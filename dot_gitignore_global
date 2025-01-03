@@ -226,3 +226,7 @@ xcuserdata/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,vim,linux,jetbrains,xcode,sam
 
+### aws cdk ###
+cdk.out/
+.cdk.staging/
+
