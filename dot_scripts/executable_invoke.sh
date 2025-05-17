@@ -19,5 +19,5 @@ if [ -z $template ]; then
     exit 1
 fi
 
-cdk synth && sam build -t $template || exit
-sam local invoke -t $template $functionName
+pnpx cdk synth && uvx --from aws-sam-cli sam build -t $template || exit
+uvx --from aws-sam-cli sam local invoke -t $template $functionName

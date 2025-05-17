@@ -22,7 +22,7 @@ zstyle :omz:plugins:ssh-agent quiet yes
 zstyle :omz:plugins:ssh-agent lazy yes
 
 # omz plugins
-plugins=(uv direnv chezmoi gitignore ssh-agent auto-notify)
+plugins=(uv git direnv chezmoi gitignore ssh-agent auto-notify)
 
 # source omz
 source $ZSH/oh-my-zsh.sh
