@@ -1,10 +1,6 @@
-alias cc='cookiecutter gh:isaacasancheza/cookiecutters --directory'
-alias uuid='python3 -m uuid'
+alias pn='pnpm'
+alias px='pnpx'
+alias cc='uvx cookiecutter gh:isaacasancheza/cookiecutters --directory'
 alias cpenv='uv python find | pbcopy'
-alias cdkgc='sh ~/.scripts/cdkgc.sh'
-alias random='python3 -m random'
 alias invoke='sh ~/.scripts/invoke.sh'
 alias isonow='python3 -c "import datetime; print(datetime.datetime.now(datetime.timezone.utc).isoformat())"'
-alias covhtml='uv run coverage html && open htmlcov/index.html'
-alias minidump='sh ~/.scripts/minidump.sh'
-

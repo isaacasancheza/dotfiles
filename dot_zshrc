@@ -35,5 +35,8 @@ fi
 # source powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# source 1password plugins
+[[ ! -f ~/.config/op/plugins.sh ]] || source ~/.config/op/plugins.sh
+
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
