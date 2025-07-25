@@ -1,7 +1,17 @@
 alias pn='pnpm'
 alias px='pnpx'
 alias cc='uvx cookiecutter gh:isaacasancheza/cookiecutters --directory'
+alias uuid='uv run python -m uuid | pbcopy'
 alias cpenv='uv python find | pbcopy'
 alias invoke='sh ~/.scripts/invoke.sh'
+alias shadcn='pnpm dlx shadcn@latest'
 alias isonow='python3 -c "import datetime; print(datetime.datetime.now(datetime.timezone.utc).isoformat())"'
+alias cdkdeploy='cdk synth -q && cdk deploy --require-approval never'
+alias start-api='sh ~/.scripts/start-api.sh'
 alias split-video='~/.scripts/split-video.sh'
+
+# jukebox
+alias jukebox-play='uv run ~/.scripts/jukebox-play.py'
+alias jukebox-download-playlist='sh ~/.scripts/jukebox-download-playlist.sh'
+alias jukebox-normalize-playlist='sh ~/.scripts/jukebox-normalize-playlist.sh'
+
