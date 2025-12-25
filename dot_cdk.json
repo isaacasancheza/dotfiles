@@ -1,5 +1,5 @@
 {
-  "app": "uv run --refresh app.py",
+  "app": "uv run --with aws-cdk-lib app.py",
   "context": {
     "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
     "@aws-cdk/core:checkSecretUsage": true,
