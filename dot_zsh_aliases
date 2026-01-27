@@ -1,31 +1,24 @@
 alias cc='uvx cookiecutter gh:isaacasancheza/cookiecutters --directory'
 alias shadcn='pnpm dlx shadcn@latest'
 alias yt-dlp='uvx --refresh yt-dlp'
-alias split-video='~/.scripts/split-video.sh'
 
-# sam
-alias invoke='sh ~/.scripts/invoke.sh'
-alias start-api='sh ~/.scripts/start-api.sh'
+# aws
+alias awsid='aws sts get-caller-identity --query Account --output text --no-cli-pager'
 
 # cdk
 alias cdkgc='cdk --unstable gc gc "aws://$(aws sts get-caller-identity --query Account --output text)/us-east-1" --yes'
 alias cdkoutgc='find . -type d -name "cdk.out" -prune -exec rm -rf {} +'
 
 alias cdkdeploy='cdk synth -q && cdk deploy --require-approval never'
-alias datadeploy='cdkdeploy DataStack'
-alias computedeploy='cdkdeploy ComputeStack'
+alias cdkdeploydata='cdkdeploy DataStack'
+alias cdkdeploycompute='cdkdeploy ComputeStack'
 
 # pnpm
 alias pn='pnpm'
 alias px='pnpx'
 
 # python
-alias isonow='python3 -c "import datetime; print(datetime.datetime.now(datetime.timezone.utc).isoformat())"'
 alias uuid='uv run python -m uuid | pbcopy'
 alias cpenv='uv python find | pbcopy'
-
-# jukebox
-alias jukebox-play='uv run ~/.scripts/jukebox-play.py'
-alias jukebox-download-playlist='sh ~/.scripts/jukebox-download-playlist.sh'
-alias jukebox-normalize-playlist='sh ~/.scripts/jukebox-normalize-playlist.sh'
+alias isonow='python3 -c "import datetime; print(datetime.datetime.now(datetime.timezone.utc).isoformat())"'
 
