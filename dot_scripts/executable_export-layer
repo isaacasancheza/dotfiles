@@ -1,0 +1,134 @@
+#!/usr/bin/env python3
+
+import argparse
+import subprocess
+import textwrap
+from pathlib import Path
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        '--aws-region',
+        help='AWS region for AWS CLI.',
+        required=True,
+    )
+
+    parser.add_argument(
+        '--aws-profile',
+        help='AWS profile for CodeArtifact auth.',
+        required=True,
+    )
+
+    parser.add_argument(
+        '--ca-repo',
+        help='CodeArtifact repository name.',
+        required=True,
+    )
+
+    parser.add_argument(
+        '--ca-region',
+        help='CodeArtifact region.',
+        required=True,
+    )
+
+    parser.add_argument(
+        '--ca-domain',
+        help='CodeArtifact domain.',
+        required=True,
+    )
+
+    parser.add_argument(
+        '--ca-domain-owner',
+        help='CodeArtifact domain owner account ID.',
+        required=True,
+    )
+
+    parser.add_argument(
+        '--platform',
+        help='Docker platform to build for.',
+        required=True,
+    )
+
+    parser.add_argument(
+        '--python-version',
+        help='Python version tag for the SAM build image.',
+        required=True,
+    )
+
+    parser.add_argument(
+        '--layer-filename',
+        help='Output layer zip filename.',
+        required=True,
+    )
+
+    cwd = Path.cwd()
+    home = Path.home()
+    args = parser.parse_args()
+
+    inner_script = textwrap.dedent(
+        """
+        python -m pip install -U uv awscli
+
+        export AWS_CODEARTIFACT_TOKEN="$(aws codeartifact get-authorization-token \
+          --domain "$CA_DOMAIN" \
+          --domain-owner "$CA_DOMAIN_OWNER" \
+          --region "$CA_REGION" \
+          --query authorizationToken \
+          --output text)"
+
+        export UV_INDEX_URL="https://aws:${AWS_CODEARTIFACT_TOKEN}@${CA_DOMAIN}-${CA_DOMAIN_OWNER}.d.codeartifact.${CA_REGION}.amazonaws.com/pypi/${CA_REPO}/simple/"
+        export PIP_INDEX_URL="$UV_INDEX_URL"
+
+        export UV_EXTRA_INDEX_URL="https://pypi.org/simple"
+        export PIP_EXTRA_INDEX_URL="$UV_EXTRA_INDEX_URL"
+
+        rm -rf python
+        uv pip install . \
+          --target python \
+          --no-cache \
+          --no-compile-bytecode \
+          --no-installer-metadata
+
+        rm -f $LAYER_FILENAME
+        zip -r $LAYER_FILENAME python > /dev/null
+
+        rm -rf python
+        """
+    ).strip()
+
+    docker_command = [
+        'docker',
+        'run',
+        '--rm',
+        '--platform',
+        args.platform,
+        '-v',
+        f'{cwd}:/var/task',
+        '-w',
+        '/var/task',
+        '-v',
+        f'{home / ".aws"}:/root/.aws:ro',
+        '-e',
+        f'AWS_REGION={args.aws_region}',
+        '-e',
+        f'AWS_PROFILE={args.aws_profile}',
+        '-e',
+        f'CA_REPO={args.ca_repo}',
+        '-e',
+        f'CA_REGION={args.ca_region}',
+        '-e',
+        f'CA_DOMAIN={args.ca_domain}',
+        '-e',
+        f'CA_DOMAIN_OWNER={args.ca_domain_owner}',
+        '-e',
+        f'LAYER_FILENAME={args.layer_filename}',
+        f'public.ecr.aws/sam/build-python{args.python_version}:latest',
+        'bash',
+        '-lc',
+        inner_script,
+    ]
+
+    r = subprocess.run(docker_command)
+
+    parser.exit(r.returncode)

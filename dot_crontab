@@ -1,0 +1,7 @@
+# Variables explícitas (cron no expande ~)
+HOME=/Users/isaac
+PATH=/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin
+
+# Renovar token de CodeArtifact cada 10 horas
+0 */10 * * * /Users/isaac/.scripts/set-codeartifact-repository.sh >> /tmp/set-codeartifact-repository.log 2>&1
+

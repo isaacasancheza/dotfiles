@@ -1,5 +1,7 @@
 # uv
 export UV_PYTHON=3.13
+export UV_KEYRING_PROVIDER=subprocess
+export UV_INDEX_CODEARTIFACT_USERNAME=aws
 
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
@@ -8,11 +10,11 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# auto-notify
-export AUTO_NOTIFY_THRESHOLD=10
-
 # homebrew 
 export HOMEBREW_NO_AUTO_UPDATE="1"
+
+# add scripts folder to path
+export PATH="$HOME/.scripts:$PATH"
 
 # add local binaries to PATH if they aren't added yet
 # affix colons on either side of $PATH to simplify matching
