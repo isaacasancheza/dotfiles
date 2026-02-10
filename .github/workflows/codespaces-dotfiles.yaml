@@ -3,7 +3,7 @@ name: codespaces-dotfiles
 on:
   push:
     paths:
-      - **
+      - '**'
       - .github/workflows/codespaces-dotfiles.yaml
     branches:
       - master
