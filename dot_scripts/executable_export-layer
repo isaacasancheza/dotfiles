@@ -57,14 +57,28 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--layer-filename',
-        help='Output layer zip filename.',
+        '--input-dir',
+        help='Directory containing the Python package to install.',
         required=True,
     )
 
-    cwd = Path.cwd()
+    parser.add_argument(
+        '--output-dir',
+        help='Directory where the layer zip will be written.',
+        required=True,
+    )
+
+    parser.add_argument(
+        '--filename',
+        help='Output layer zip filename.',
+        default='layer.zip',
+    )
+
     home = Path.home()
     args = parser.parse_args()
+
+    input_dir = Path(args.input_dir).expanduser().resolve()
+    output_dir = Path(args.output_dir).expanduser().resolve()
 
     inner_script = textwrap.dedent(
         """
@@ -88,12 +102,13 @@ if __name__ == '__main__':
           --target python \
           --no-cache \
           --no-compile-bytecode \
-          --no-installer-metadata
+          --no-installer-metadata \
+          --link-mode=copy
 
-        rm -f $LAYER_FILENAME
-        zip -r $LAYER_FILENAME python > /dev/null
+        rm -f /var/output/$ZIP_FILENAME
+        zip -r /var/output/$ZIP_FILENAME python > /dev/null
 
-        rm -rf python
+        rm -rf python build
         """
     ).strip()
 
@@ -104,9 +119,11 @@ if __name__ == '__main__':
         '--platform',
         args.platform,
         '-v',
-        f'{cwd}:/var/task',
+        f'{input_dir}:/var/task',
         '-w',
         '/var/task',
+        '-v',
+        f'{output_dir}:/var/output',
         '-v',
         f'{home / ".aws"}:/root/.aws:ro',
         '-e',
@@ -122,7 +139,7 @@ if __name__ == '__main__':
         '-e',
         f'CA_DOMAIN_OWNER={args.ca_domain_owner}',
         '-e',
-        f'LAYER_FILENAME={args.layer_filename}',
+        f'ZIP_FILENAME={args.filename}',
         f'public.ecr.aws/sam/build-python{args.python_version}:latest',
         'bash',
         '-lc',
@@ -132,3 +149,4 @@ if __name__ == '__main__':
     r = subprocess.run(docker_command)
 
     parser.exit(r.returncode)
+

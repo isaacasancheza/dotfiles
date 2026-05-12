@@ -1,6 +1,6 @@
 alias cc='uvx cookiecutter gh:isaacasancheza/cookiecutters --directory'
 alias shadcn='pnpm dlx shadcn@latest'
-alias yt-dlp='uvx --refresh yt-dlp'
+alias yt-dlp='uvx --refresh "yt-dlp[default]"'
 
 # aws
 alias awsid='aws sts get-caller-identity --query Account --output text --no-cli-pager'

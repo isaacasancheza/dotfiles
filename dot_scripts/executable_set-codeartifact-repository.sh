@@ -4,11 +4,11 @@ set -euo pipefail
 # =========================
 # Configuración
 # =========================
-DOMAIN=""
-DOMAIN_OWNER=""
-REPOSITORY=""
-REGION=""
-SCOPE=""
+DOMAIN="elrincondelsanchez"
+DOMAIN_OWNER="561411584591"
+REPOSITORY="javascript-prod"
+REGION="us-east-1"
+SCOPE="@elrincondelsanchez"
 NPMRC="${HOME}/.npmrc"
 
 # =========================

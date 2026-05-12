@@ -3,6 +3,9 @@ export UV_PYTHON=3.13
 export UV_KEYRING_PROVIDER=subprocess
 export UV_INDEX_CODEARTIFACT_USERNAME=aws
 
+# node
+export NODE_OPTIONS="--max-old-space-size=6144"
+
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
