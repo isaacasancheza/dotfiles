@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
     inner_script = textwrap.dedent(
         """
-        python -m pip install -U uv awscli
+        python -m pip install -U uv boto3 awscli
 
         export AWS_CODEARTIFACT_TOKEN="$(aws codeartifact get-authorization-token \
           --domain "$CA_DOMAIN" \
